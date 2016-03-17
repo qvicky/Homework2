@@ -35,6 +35,7 @@ namespace HomeworkWeek1.Controllers
             var pageData = data.ToPagedList(pageNumber: p, pageSize: 5);
 
             return View(pageData);
+
         }
 
         public ActionResult 客戶關聯資料() {
