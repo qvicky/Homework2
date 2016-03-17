@@ -1,0 +1,17 @@
+﻿@using Microsoft.AspNet.Identity
+@*@if (Request.IsAuthenticated)*@
+
+@if (User.Identity.IsAuthenticated) {
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" })) {
+            @Html.AntiForgeryToken()
+            @: | @Html.ActionLink("登出", "LogOut", "Member")
+            @: | @Html.ActionLink("修改資料", "EditMember", "Member")
+            @: | <span style="color:white"> @User.Identity.Name</span>
+    }
+}
+else {
+    <ul class="nav navbar-nav navbar-right">
+        <li>@*@Html.ActionLink("註冊", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })*@</li>
+        <li>@Html.ActionLink("登入", "Login", "Member", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}
