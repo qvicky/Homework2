@@ -1,0 +1,62 @@
+﻿@model IEnumerable<HomeworkWeek1.Models.客戶聯絡人>
+
+@{
+    ViewBag.Title = "客戶聯絡人";
+}
+
+<h2>客戶聯絡人</h2>
+@using (Html.BeginForm()) {
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.姓名)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.職稱)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.手機)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.電話)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.客戶資料.客戶名稱)
+            </th>
+        </tr>
+        @{
+    var data = Model.ToArray();
+        }
+        @for (int i = 0; i < data.Length; i++) {
+            @Html.HiddenFor(modelItem => data[i].Id)
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => data[i].姓名)
+                </td>
+                <td>
+                    @Html.EditorFor(modelItem => data[i].職稱)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => data[i].Email)
+                </td>
+                <td>
+                    @Html.EditorFor(modelItem => data[i].手機)
+                </td>
+                <td>
+                    @Html.EditorFor(modelItem => data[i].電話)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => data[i].客戶資料.客戶名稱)
+                </td>
+            </tr>
+        }
+    </table>
+
+    <button class="btn btn-primary">批次更新</button>
+}
+    @if (!String.IsNullOrEmpty(Convert.ToString(TempData["EditMsg"]))) {
+        <h3>@TempData["EditMsg"]</h3>
+    }

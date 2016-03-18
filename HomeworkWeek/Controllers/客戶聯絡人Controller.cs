@@ -34,6 +34,33 @@ namespace HomeworkWeek1.Controllers
             //return View(客戶聯絡人.ToList());
         }
 
+        //GET
+        public ActionResult BatchIndex(int Id) {
+            return View(repo.All().Where(p => p.客戶Id == Id));
+        }
+
+        [HttpPost]
+        public ActionResult BatchIndex(IList<聯絡人批次更新ViewModel> data) {
+            List<客戶聯絡人> 回傳聯絡人 = new List<客戶聯絡人>();
+            //IList<客戶聯絡人> 回傳聯絡人 = null;
+            if (ModelState.IsValid) {
+                foreach (var item in data) {
+                    var 客戶聯絡人 = repo.Find(item.Id);
+                    客戶聯絡人.手機 = item.手機;
+                    客戶聯絡人.電話 = item.電話;
+                    客戶聯絡人.職稱 = item.職稱;
+
+
+                    回傳聯絡人.Add(客戶聯絡人);
+                }
+                repo.UnitOfWork.Commit();
+                //return RedirectToAction("Details", "客戶資料");
+                TempData["EditMsg"] = "編輯成功 !!";
+            }
+            //return View(data);
+            return View(回傳聯絡人);
+        }
+
         // GET: 客戶聯絡人/Details/5
         public ActionResult Details(int? id)
         {

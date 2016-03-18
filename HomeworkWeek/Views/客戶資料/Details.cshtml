@@ -64,3 +64,6 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+@Html.Action("BatchIndex", "客戶聯絡人", new { Id = Model.Id })
+@*@Html.Partial("../客戶聯絡人/BatchIndex", Model.客戶聯絡人)*@
+@*@Html.Partial("../客戶聯絡人/BatchIndex", new { Id = Model.Id })*@
