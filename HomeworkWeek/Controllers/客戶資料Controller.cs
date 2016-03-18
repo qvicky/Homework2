@@ -10,6 +10,9 @@ using HomeworkWeek1.Models;
 using PagedList;
 using HomeworkWeek1.ActionFilters;
 using System.Data.SqlClient;
+using NPOI.HSSF.UserModel;
+using NPOI.SS.UserModel;
+using System.IO;
 
 namespace HomeworkWeek1.Controllers
 {
@@ -160,6 +163,17 @@ namespace HomeworkWeek1.Controllers
             //db.SaveChanges();
             repo.UnitOfWork.Commit();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult ExportByNPOI() {
+            List<客戶資料> exportData = repo.All().ToList();
+
+            MemoryStream output = new MemoryStream();
+            HSSFWorkbook book = new HSSFWorkbook();
+            output = repo.ExportExcel(exportData, book);  //產生excel檔案
+
+            return File(output.ToArray(), "application/vnd.ms-excel", "Client.xls");
+            //return View();
         }
 
         protected override void Dispose(bool disposing)
