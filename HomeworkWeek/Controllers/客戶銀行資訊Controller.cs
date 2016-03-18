@@ -9,6 +9,8 @@ using System.Web.Mvc;
 using HomeworkWeek1.Models;
 using PagedList;
 using HomeworkWeek1.ActionFilters;
+using System.IO;
+using NPOI.HSSF.UserModel;
 
 namespace HomeworkWeek1.Controllers
 {
@@ -144,6 +146,15 @@ namespace HomeworkWeek1.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult ExportByNPOI() {
+            List<客戶銀行資訊> exportData = repo.All().ToList();
+
+            MemoryStream output = new MemoryStream();
+            HSSFWorkbook book = new HSSFWorkbook();
+            output = repo.ExportExcel(exportData, book);  //產生excel檔案
+
+            return File(output.ToArray(), "application/vnd.ms-excel", "客戶銀行資訊.xls");
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

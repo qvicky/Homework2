@@ -172,7 +172,7 @@ namespace HomeworkWeek1.Controllers
             HSSFWorkbook book = new HSSFWorkbook();
             output = repo.ExportExcel(exportData, book);  //產生excel檔案
 
-            return File(output.ToArray(), "application/vnd.ms-excel", "Client.xls");
+            return File(output.ToArray(), "application/vnd.ms-excel", "客戶資料.xls");
             //return View();
         }
 

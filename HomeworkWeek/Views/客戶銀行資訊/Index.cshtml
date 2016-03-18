@@ -12,6 +12,11 @@
 <p>
     @Html.ActionLink("新增銀行帳戶", "Create")
 </p>
+@{
+    <a href="@Url.Action("ExportByNPOI", "客戶銀行資訊")" target="_blank">
+        <img src="~/Content/Excel_48.png" alt="XLS" title="XLS" />
+    </a>
+}
 <table class="table">
     <tr>
         <th>

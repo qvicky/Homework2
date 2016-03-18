@@ -9,18 +9,17 @@ using System.Web.Mvc;
 using HomeworkWeek1.Models;
 using PagedList;
 using HomeworkWeek1.ActionFilters;
+using System.IO;
+using NPOI.HSSF.UserModel;
 
-namespace HomeworkWeek1.Controllers
-{
+namespace HomeworkWeek1.Controllers {
     [記錄Action的執行時間]
     [HandleError(ExceptionType = typeof(NullReferenceException), View = "Error")]
-    public class 客戶聯絡人Controller : Controller
-    {
+    public class 客戶聯絡人Controller : Controller {
         //private 客戶資料Entities db = new 客戶資料Entities();
         客戶聯絡人Repository repo = RepositoryHelper.Get客戶聯絡人Repository();
         // GET: 客戶聯絡人
-        public ActionResult Index(string keyword, string sortOrder, int p = 1)
-        {
+        public ActionResult Index(string keyword, string sortOrder, int p = 1) {
             //var 客戶聯絡人 = db.客戶聯絡人.Include(客 => 客.客戶資料).Where(p => !p.是否已刪除);
             ViewBag.sort職稱 = string.IsNullOrEmpty(sortOrder) ? "職稱_desc" : "";
             ViewBag.sort姓名 = sortOrder == "姓名" ? "姓名_desc" : "姓名";
@@ -65,26 +64,22 @@ namespace HomeworkWeek1.Controllers
         }
 
         // GET: 客戶聯絡人/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
+        public ActionResult Details(int? id) {
+            if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             //客戶聯絡人 客戶聯絡人 = db.客戶聯絡人.Find(id);
             客戶聯絡人 客戶聯絡人 = repo.Find(id.Value);
-            if (客戶聯絡人 == null)
-            {
+            if (客戶聯絡人 == null) {
                 return HttpNotFound();
             }
             return View(客戶聯絡人);
         }
 
         // GET: 客戶聯絡人/Create
-        public ActionResult Create()
-        {
+        public ActionResult Create() {
             var db = (客戶資料Entities)repo.UnitOfWork.Context;
-           ViewBag.客戶Id = new SelectList(db.客戶資料, "Id", "客戶名稱");  //下拉選單
+            ViewBag.客戶Id = new SelectList(db.客戶資料, "Id", "客戶名稱");  //下拉選單
             return View();
         }
 
@@ -93,10 +88,8 @@ namespace HomeworkWeek1.Controllers
         // 詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,客戶Id,職稱,姓名,Email,手機,電話,是否已刪除")] 客戶聯絡人 客戶聯絡人)
-        {
-            if (ModelState.IsValid)
-            {
+        public ActionResult Create([Bind(Include = "Id,客戶Id,職稱,姓名,Email,手機,電話,是否已刪除")] 客戶聯絡人 客戶聯絡人) {
+            if (ModelState.IsValid) {
                 //db.客戶聯絡人.Add(客戶聯絡人);
                 //db.SaveChanges();
                 repo.Add(客戶聯絡人);
@@ -109,16 +102,13 @@ namespace HomeworkWeek1.Controllers
         }
 
         // GET: 客戶聯絡人/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
+        public ActionResult Edit(int? id) {
+            if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             //客戶聯絡人 客戶聯絡人 = db.客戶聯絡人.Find(id);
             客戶聯絡人 客戶聯絡人 = repo.Find(id.Value);
-            if (客戶聯絡人 == null)
-            {
+            if (客戶聯絡人 == null) {
                 return HttpNotFound();
             }
             var db = (客戶資料Entities)repo.UnitOfWork.Context;
@@ -131,11 +121,9 @@ namespace HomeworkWeek1.Controllers
         // 詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,客戶Id,職稱,姓名,Email,手機,電話,是否已刪除")] 客戶聯絡人 客戶聯絡人)
-        {
+        public ActionResult Edit([Bind(Include = "Id,客戶Id,職稱,姓名,Email,手機,電話,是否已刪除")] 客戶聯絡人 客戶聯絡人) {
             var db = new 客戶資料Entities();
-            if (ModelState.IsValid)
-            {
+            if (ModelState.IsValid) {
                 db = (客戶資料Entities)repo.UnitOfWork.Context;
                 db.Entry(客戶聯絡人).State = EntityState.Modified;
                 db.SaveChanges();
@@ -146,16 +134,13 @@ namespace HomeworkWeek1.Controllers
         }
 
         // GET: 客戶聯絡人/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
+        public ActionResult Delete(int? id) {
+            if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             //客戶聯絡人 客戶聯絡人 = db.客戶聯絡人.Find(id);
             客戶聯絡人 客戶聯絡人 = repo.Find(id.Value);
-            if (客戶聯絡人 == null)
-            {
+            if (客戶聯絡人 == null) {
                 return HttpNotFound();
             }
             return View(客戶聯絡人);
@@ -164,8 +149,7 @@ namespace HomeworkWeek1.Controllers
         // POST: 客戶聯絡人/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
+        public ActionResult DeleteConfirmed(int id) {
             //客戶聯絡人 客戶聯絡人 = db.客戶聯絡人.Find(id);
             客戶聯絡人 客戶聯絡人 = repo.Find(id);
             客戶聯絡人.是否已刪除 = true;
@@ -175,10 +159,19 @@ namespace HomeworkWeek1.Controllers
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
+        public ActionResult ExportByNPOI() {
+            List<客戶聯絡人> exportData = repo.All().ToList();
+
+            MemoryStream output = new MemoryStream();
+            HSSFWorkbook book = new HSSFWorkbook();
+            output = repo.ExportExcel(exportData, book);  //產生excel檔案
+
+            return File(output.ToArray(), "application/vnd.ms-excel", "客戶聯絡人.xls");
+
+        }
+
+        protected override void Dispose(bool disposing) {
+            if (disposing) {
                 var db = (客戶資料Entities)repo.UnitOfWork.Context;
                 db.Dispose();
             }
