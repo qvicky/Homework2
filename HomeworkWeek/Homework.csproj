@@ -163,6 +163,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionFilters\記錄Action的執行時間.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -360,6 +361,10 @@
     <Content Include="Views\Member\Login.cshtml" />
     <Content Include="Views\Member\EditMember.cshtml" />
     <Content Include="Views\客戶聯絡人\BatchIndex.cshtml" />
+    <Content Include="Views\客戶資料\NullReferenceError.cshtml" />
+    <Content Include="Views\客戶銀行資訊\Error.cshtml" />
+    <Content Include="Views\客戶聯絡人\Error.cshtml" />
+    <Content Include="Views\客戶資料\DBError.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

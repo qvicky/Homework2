@@ -8,9 +8,14 @@ using System.Web;
 using System.Web.Mvc;
 using HomeworkWeek1.Models;
 using PagedList;
+using HomeworkWeek1.ActionFilters;
+using System.Data.SqlClient;
 
 namespace HomeworkWeek1.Controllers
 {
+    [記錄Action的執行時間]
+    [HandleError(ExceptionType=typeof(NullReferenceException),View="NullReferenceError")]
+    [HandleError(ExceptionType=typeof(SqlException),View="DBError")]
     public class 客戶資料Controller : Controller
     {
         //private 客戶資料Entities db = new 客戶資料Entities();

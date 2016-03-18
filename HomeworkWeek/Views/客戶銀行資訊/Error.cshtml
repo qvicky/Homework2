@@ -1,0 +1,9 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    ViewBag.Title = "錯誤";
+}
+
+<h1 class="text-danger">客戶銀行資訊發生錯誤</h1>
+<hr />
+<pre> @Model.Exception.Message</pre>
