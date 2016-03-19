@@ -14,7 +14,9 @@
 </p>
 
 @using (@Html.BeginForm("Index", "客戶聯絡人", FormMethod.Get)) {
-    <input type="search" placeholder="找職稱" name="keyword" />
+    @*<input type="search" placeholder="找職稱" name="keyword" />*@
+    @Html.TextBox("keyword", null,new { onchange = "this.form.submit();"})
+    @*<input type="submit" value="查詢" />*@
     <a href="@Url.Action("ExportByNPOI", "客戶聯絡人")" target="_blank">
         <img src="~/Content/Excel_48.png" alt="XLS" title="XLS" />
     </a>

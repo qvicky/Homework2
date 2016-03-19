@@ -53,7 +53,8 @@ namespace HomeworkWeek1.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index", "Home");
             }
-            return View(member);
+            //return View(member);
+            return RedirectToAction("Index", "Home");
         }
 
         private bool CheckLogin(string account, string password) {

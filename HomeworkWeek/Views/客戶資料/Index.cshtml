@@ -20,12 +20,16 @@
         new SelectListItem{Text = "關鍵客戶", Value = "關鍵客戶"},
         new SelectListItem{Text = "主要客戶", Value = "主要客戶" },
         new SelectListItem{Text = "普通客戶", Value = "普通客戶" }
-    })
-    <input type="search" placeholder="請輸入客戶名稱" name="keyword" />
-    <input type="submit" value="查詢" />
+    }, new { onchange ="this.form.submit();"})
+    @*<input type="submit" value="查詢" />*@
+    @*<input type="search" placeholder="請輸入客戶名稱" name="keyword" />*@
+    @(" ")
+    @Html.TextBox("keyword", null, new { onchange="this.form.submit();"})
+    
     <a href="@Url.Action("ExportByNPOI", "客戶資料")" target="_blank">
         <img src="~/Content/Excel_48.png" alt="XLS" title="XLS" />
     </a>
+    
     <table class="table">
         <tr>
             <th>
