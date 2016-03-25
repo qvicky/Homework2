@@ -1,9 +1,12 @@
 ﻿@model HomeworkWeek1.Models.客戶聯絡人
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "客戶聯絡人-Delete";
+    string linkText = @ViewBag.Title;
 }
-
+@section breadcrumb {
+    <li>@Html.ActionLink(linkText, "Index", "客戶聯絡人")</li>
+}
 <h2>Delete</h2>
 
 <h3>Are you sure you want to delete this?</h3>

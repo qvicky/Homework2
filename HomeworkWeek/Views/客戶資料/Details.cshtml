@@ -1,9 +1,12 @@
 ﻿@model HomeworkWeek1.Models.客戶資料
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "客戶資料-Details";
+    string linkText = @ViewBag.Title;
 }
-
+@section breadcrumb {
+    <li>@Html.ActionLink(linkText, "Index", "客戶資料")</li>
+}
 <h2>Details</h2>
 
 <div>
@@ -61,7 +64,7 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |*@
     @Html.ActionLink("Back to List", "Index")
 </p>
 @Html.Action("BatchIndex", "客戶聯絡人", new { Id = Model.Id })

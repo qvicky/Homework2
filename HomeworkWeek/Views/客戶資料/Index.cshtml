@@ -4,15 +4,19 @@
 <link href="~/Content/PagedList.css" rel="stylesheet" />
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "客戶資料";
+    string linkText = @ViewBag.Title;
 }
-
+@section breadcrumb {
+    <li>@Html.ActionLink(linkText,"Index","客戶資料")</li>
+}
 <h2>客戶資料</h2>
-
 <p>
     @Html.ActionLink("新增客戶", "Create")
 </p>
-
+@{
+    var data = Model as IPagedList<HomeworkWeek1.Models.客戶資料>;
+}
 @using (Html.BeginForm("Index", "客戶資料", FormMethod.Get)) {
     <text>客戶分類：</text>
     @Html.DropDownList("clientType", new List<SelectListItem> {
@@ -25,11 +29,10 @@
     @*<input type="search" placeholder="請輸入客戶名稱" name="keyword" />*@
     @(" ")
     @Html.TextBox("keyword", null, new { onchange="this.form.submit();"})
-    
     <a href="@Url.Action("ExportByNPOI", "客戶資料")" target="_blank">
         <img src="~/Content/Excel_48.png" alt="XLS" title="XLS" />
     </a>
-    
+    @Html.PagedListPager(list: data, generatePageUrl: page => Url.Action("Index", new { p = page }))
     <table class="table">
         <tr>
             <th>
@@ -93,11 +96,6 @@
                 </td>
             </tr>
         }
-    </table>
-    
-}
-<br />
-@{
-    var data = Model as IPagedList<HomeworkWeek1.Models.客戶資料>;
+    </table>    
 }
 @Html.PagedListPager(list: data, generatePageUrl: page => Url.Action("Index", new  { p = page }))

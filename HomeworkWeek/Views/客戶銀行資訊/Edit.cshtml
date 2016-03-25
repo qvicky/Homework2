@@ -1,9 +1,12 @@
 ﻿@model HomeworkWeek1.Models.客戶銀行資訊
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "客戶銀行資訊-Edit";
+    string linkText = @ViewBag.Title;
 }
-
+@section breadcrumb {
+    <li>@Html.ActionLink(linkText, "Index", "客戶銀行資訊")</li>
+}
 <h2>Edit</h2>
 
 
@@ -11,7 +14,7 @@
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
+    <div class="form-horizontal form-horizontal-width">
         <h4>客戶銀行資訊</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -77,6 +80,6 @@
     @Html.ActionLink("Back to List", "Index")
 </div>
 
-@section Scripts {
+@*@section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-}
+}*@
